@@ -4,9 +4,10 @@
 <head>
 
    <title>YUVAN</title>
+   <link rel="stylesheet" href="yuvan.css">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+   <script src="https://kit.fontawesome.com/0e2e43fb4f.js" crossorigin="anonymous"></script>
 </head>
-<link rel="stylesheet" href="yuvan.css">
-<script src="https://kit.fontawesome.com/0e2e43fb4f.js" crossorigin="anonymous"></script>
 
 
 <body>
@@ -26,25 +27,126 @@
       <center>
          <h1 class="title">Yuvan U1</h1>
       </center>
-      <a href="index.html">choose your Mood</a>
-      <a href="">love</a>
-      <a href=".html">folk</a>
-      <a href=".html">sad </a>
-      <a href=".html">Happy</a>
-      <a href=".html">Motivational</a>
 
    </div>
-   
-</body>
-<div class="musicbody">
-   <div class="music">
-      <img src="yuvan.jfif">
-      <p id="title_song">title.mp3</p>
-      <p id="artnm">artiest name</p>
-      <input type="range">
-      <button><i class="fa-solid fa-backward-step"></i></button>
-      <button><i class="fa-solid fa-play"></i></button>
-      <button><i class="fa-solid fa-forward-step"></i></button>
+   <div class="frambox" >
+      <div>
+         <img src="yuvanfram.jpg" alt="yuvan" width="200px" height="200px">
+         <p style="text-align: center; margin-top: 30px;font-size: 30px; color: white;">Yuvan U1</p>        
+      </div>
    </div>
-</div>
+   <div class="playbuttons">
+      <p id="s_name">song name</p>
+      <input type="range" id="duration" min="0" max="100" value="0" onclick="change_duration()">
+      <marquee>song track</marquee>
+      <button onclick="previous_song()" id="pre"><i class="fa-solid fa-backward"></i></button>
+      <button onclick="justplay()" id="play"><i class="fa-solid fa-play"></i></button>
+      <button onclick="next_song()" id="next"><i class="fa-solid fa-forward"></i></button>
+   </div>
+   <script>
+      let previous = document.querySelector('#pre');
+      let play = document.querySelector('#play');
+      let next = document.querySelector('#next');
+      let name = document.querySelector('#s_name');
+      let slider =  document.querySelector('#duration');
+       
+      let timer;
+      let autoplay=1;
+
+      let index_no =0;
+      let playing_song =false; 
+      
+      let track = document.createElement('audio');
+
+      let All_song = [
+         {
+            name : "Ennadi Mayavi Nee",
+            path : "music/Ennadi-Maayavi-Nee-MassTamilan.com.mp3",
+            
+
+      },
+      {
+            name : "second song",
+            path : "music/Kaadhal-En-Kaviye-MassTamilan.dev.mp3",
+
+      },
+      {
+            name : "thired song",
+            path : "music/Mudhal-Nee-Mudivum-Nee-Title-Track-MassTamilan.io.mp3",
+
+      },
+   ];
+   function load_track(index_no){
+      clearInterval(timer);
+      reset_slider();
+
+      track.src = All_song[index_no].path;
+      name.innerHTML =All_song[index_no].name;
+
+      timer=setInterval(range_slider ,1000);
+      total.innerHTML =All_song.length;
+      present.innerHTML =index_no + 1;
+   }
+   load_track(index_no);
+   function justplay(){
+      if(playing_song == false){
+         playsong();
+      }
+      else {
+         pausesong();
+      }
+   }
+
+   function reset_slider(){
+      slider.value =0;
+   }
+   function playsong(){
+      track.play();
+      playing_song =true;
+      play.innerHTML = '<i class="fa-solid fa-pause"></i>'
+
+   }
+   function pausesong(){
+      track.pause();
+      playing_song =false;
+      play.innerHTML = '<i class="fa-solid fa-play"></i>'
+
+   }
+   function next_song(){
+      if(index_no< All_song.length -1){
+         index_no += 1;
+         load_track(index_no);
+         playsong();
+      }
+      else {
+         index_no =0;
+         load_track(index_no);
+         playsong();
+
+
+      }
+   }
+   function previous_song(){
+      if(index_no>0){
+         index_no -= 1;
+         load_track(index_no);
+         playsong();
+      }
+      else {
+         index_no = All_song.length;
+         load_track(index_no);
+         playsong();
+
+
+      }
+   }
+   function change_duration(){
+      slider_position =track.duration * (slider.value / 100);
+      track.currentime = slider_position;
+   }
+   
+
+   </script>
+</body>
+
 </html>

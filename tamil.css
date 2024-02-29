@@ -110,8 +110,10 @@ body {
   }
   .container {
     padding-left: 250px;
-    display: flex;
-    flex-wrap: wrap;
+    display:flex;
+    flex-wrap:wrap;
+   
+    
   }
   .container div {
     color: white;
@@ -121,6 +123,7 @@ body {
     border:10px ;
     width: 200px;
     padding: 20px;
+    
 
   }
   .container div:hover {
